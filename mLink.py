@@ -3,6 +3,7 @@
 
 from mPost import Post
 
+from datetime import datetime
 
 class Link(Post):
     def __init__(self):
@@ -18,7 +19,9 @@ class Link(Post):
         self.__url = value
 
     def read_from_console(self):
-        pass
+        self.url = raw_input("Url of the link:  ")
+        self.text = raw_input("What is the link?:  ")
 
     def to_strings(self):
-        pass
+        created_at = "Was created " + datetime.strftime(self.created_at, "%d:%m:%Y %H:%M")
+        return (created_at, self.url, self.text)

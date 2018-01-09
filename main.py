@@ -1,21 +1,42 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+
 from os import mkdir
-from mPost import Post
+
 from mLink import Link
 from mMemo import Memo
 from mTask import Task
 
 try:
     mkdir('notes')
-except WindowsError: pass
+except WindowsError:
+    pass
 
-post = Post()
-link = Link()
-memo = Memo()
-task = Task()
-post.save(["dimon hello", " and bay-bay"])
-link.save(["это мой линк"])
-memo.save(["это моя мема"])
-task.save(["это моё задание"])
+types = {1: Memo(), 2: Link(), 3: Task()}
+
+
+def create(type_index):
+    if type_index > 0 and type_index <= 3:
+        return types[type_index]
+    else:
+        return None
+
+
+def main():
+    while True:
+        try:
+            idx = input("Какую запись Вы хотите создать? "
+                        "\n 1.Памятка \n 2.Ссылка \n 3.Задача \n ")
+        except NameError:
+            continue
+        post = create(idx)
+        if post is not None:
+            break
+
+    post.read_from_console()
+    post.save(post.to_strings())
+
+
+if __name__ == "__main__":
+    main()
